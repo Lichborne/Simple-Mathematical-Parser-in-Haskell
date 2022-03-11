@@ -1,0 +1,123 @@
+-- Implement the following RegExes:
+{-
+[
+    a : 'a',
+    b : [1,2,3],
+    c : {g,{1,2,3},[1,2,3]}
+]
+-}
+
+{-
+RegEx rules
+
+< t > == "t"
+
+< alma > == "alma"
+< alma > == "alma barack"
+
+
+< (alma) > == "alma"
+< (alma) > == "alma barack"
+< (al)(ma) > == "alma"
+< (al)(ma) > == "alma barack"
+
+< al|ma > == "al"
+< al|ma > == "altat"
+< al|ma > == "ma"
+< al|ma > == "maholnap"
+
+< ^alma > == "alma"
+< ^alma > == "alma valami"
+< ^alma > != "aalma valami"
+
+< alma$ > == "alma"
+< alma$ > != "almaalma"
+
+< alma? > == "alm"
+< alma? > == "alma"
+< (alma)? > == ""
+< (alma)? > == "alma"
+
+< alma* > == "alm"
+< alma* > == "alma"
+< alma* > == "almaaaaaaaaaa"
+< alma* > == "almaaaaaaaaaaaaaaaaaaa"
+
+< alma+ > == "alma"
+< alma+ > == "almaaaaaaaaaa"
+< alma+ > == "almaaaaaaaaaaaaaaaaaaa"
+< (alma)+ > == "almaalmaalma"
+
+< (al|ma)* > == ""
+< (al|ma)* > == "al"
+< (al|ma)* > == "ma"
+< (al|ma)* > == "alal"
+< (al|ma)* > == "alma"
+< (al|ma)* > == "mama"
+< (al|ma)* > == "maal"
+
+< alma{2} > == "almaa"
+< (alma){2} > == "almaalma"
+
+< alma{1-3} > == "alma"
+< alma{1-3} > == "almaa"
+< alma{1-3} > == "almaaa"
+
+< [a-c] > == "a"
+< [a-c] > == "b"
+< [a-c] > == "c"
+
+< 0|(-?[1-9][0-9]*) > == "12" 
+
+(operator: .)
+< .. > == "ab"
+< .. > == "la"
+< .. > -- any two chars
+
+Escape karakterek: (ha valami)
+< \+ >
+< .* > == "almalmalmalam
+           fasdjklafsdkjlsfds
+           daskjdsak"
+
+< .*$\n^.* > -- minimum 2 sor van
+-}
+
+-- (ab|cd)+$
+p1 :: Parser ()
+p1 = some (string "ab" <|> string "cd") >> eof
+
+p1Tests :: [Bool]
+p1Tests =
+  [ not $ match p1 ""
+  , not $ match p1 "asdf"
+  ,       match p1 "ababcdab"
+  ,       match p1 "cd"
+  , not $ match p1 "cde"
+  ]
+
+-- (foo|bar)*baz
+p2 :: Parser ()
+p2 = undefined
+
+p2Tests :: [Bool]
+p2Tests =
+  [       match p2 "baz"
+  ,       match p2 "foofoobaz"
+  , not $ match p2 "fobarobaz"
+  ,       match p2 "barfoobarbaz"
+  ]
+
+-- \[(foo(, foo)*)?\]
+p3 :: Parser ()
+p3 = undefined
+
+p3Tests :: [Bool]
+p3Tests =
+  [       match p3 "[]"
+  ,       match p3 "[foo]"
+  , not $ match p3 "foo"
+  , not $ match p3 "[foo, foo, foo"
+  ,       match p3 "[foo, foo, foo]"
+  ]
+
