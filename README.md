@@ -3,7 +3,7 @@ This is a simple mathematical parser written in Haskell. Please consult Regex.tx
 
 Parsing (for expressions) can be validated in the following format: runParser pExpr "yourstringhere"
   
-Syntax is the standard Haskell syntax for multiplication, division, addition, subtraction, exponentiation, and equivalence relation.
+Syntax is the standard Haskell syntax for multiplication, division, addition, subtraction, exponentiation, and the equivalence relation.
 
 Outputs are constructed using the following type:
 
