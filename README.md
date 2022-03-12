@@ -7,7 +7,7 @@ Parsing (for expressions) can be validated in the following format:
   
 Syntax is the standard Haskell syntax for multiplication, division, addition, subtraction, exponentiation, and equivalence relation.
 
-Outputs are constructed of the following type:
+Outputs are constructed using the following type:
 
 data Expr = Lit Integer
           | Add Expr Expr
