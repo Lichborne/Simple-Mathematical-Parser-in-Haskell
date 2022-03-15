@@ -10,10 +10,16 @@ import Data.Maybe
 import Distribution.Types.ExposedModule (ExposedModule(exposedReexport))
 import System.FilePath.Windows (pathSeparator)
 
--- Create Parser type
+{-  PARSER FUNCTIONS 
+
+The below section until line 165 is for the Parser type and its related functions in general.
+The later section is for the parsing of simple mathematical expressions.
+
+-}
+-- Create Parser type; formulation from Viktor Bense, Eotvos Lorand Tudomanyegyetem 
 newtype Parser a = Parser {runParser :: String -> Maybe (a, String)}
 
--- Create necessary instances
+-- Create necessary instances; they are fairly standard. 
 instance Functor Parser where
     fmap f (Parser g) = Parser $ \x -> case g x of
         Nothing       -> Nothing
@@ -24,7 +30,7 @@ instance Applicative Parser where
     (Parser f) <*> (Parser g) = Parser $ \x -> case f x of
         Nothing       -> Nothing
         Just (ab, str) -> case g str of
-            Nothing         -> Nothing
+            Nothing        -> Nothing
             Just (a, str') -> Just (ab a, str')
 
 instance Monad Parser where
@@ -123,11 +129,11 @@ elemChar :: [Char] -> Parser Char
 elemChar []     = empty
 elemChar (x:xs) = satisfy (== x) <|> elemChar xs
 
--- runParser (elemChar "abc") "alma" == Just ('a',"lma")
+-- runParser (elemChar "abc") "apple" == Just ('a',"pple")
 -- runParser (elemChar "abc") "aaaa" == Just ('a',"aaa")
--- runParser (elemChar "abc") "barack" == Just ('b',"arack")
--- runParser (elemChar "abc") "citrom" == Just ('c',"itrom")
--- runParser (elemChar "acd") "barack" == Nothing
+-- runParser (elemChar "abc") "banana" == Just ('b',"anana")
+-- runParser (elemChar "abc") "citrus" == Just ('c',"itrus")
+-- runParser (elemChar "acd") "banana" == Nothing
 
 -- Whitespace, such as space, tab, newline (\s in RegEx)
 whitespace :: Parser Char
@@ -155,26 +161,6 @@ match = (isJust .) . runParser
 -- [a-z]
 lowercase :: Parser Char
 lowercase = undefined
-
--- Parse an email address of the following format and return the username!
--- [a-z]+@domain\.(com|org|hu)
-emailUser :: Parser ()
-emailUser = undefined
-
--- Parse a description of a person in the following format:
--- "John is an 11-year-old boy"
--- "Stepgen is a 24-year-old boy"
--- "Mary is a 29-year-old girl"
-data Gender = Boy | Girl
-data Person = MkPerson { name :: String, age :: Int, gender :: Gender }
-
-person :: Parser Person
-person = undefined
-
--- Same as p3, but count the number of elements in the list!
-listLength :: Parser Int
-listLength = undefined
-
 
 ----------------------------------------------------------
 --                                                      --
