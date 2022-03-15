@@ -162,6 +162,19 @@ match = (isJust .) . runParser
 lowercase :: Parser Char
 lowercase = undefined
 
+-- (ab|cd)+$
+p1 :: Parser ()
+p1 = some (string "ab" <|> string "cd") >> eof
+
+p1Tests :: [Bool]
+p1Tests =
+  [ not $ match p1 ""
+  , not $ match p1 "asdf"
+  ,       match p1 "ababcdab"
+  ,       match p1 "cd"
+  , not $ match p1 "cde"
+  ]
+
 ----------------------------------------------------------
 --                                                      --
 --  Pasring and Evaluation of Mathematical Expressions  --
@@ -277,4 +290,31 @@ postfixAssoc
 postfixAssoc
 
 postfixNonAssoc
-postfixNonAssoc -}
+postfixNonAssoc 
+
+
+-- (foo|bar)*baz
+p2 :: Parser ()
+p2 = undefined
+
+p2Tests :: [Bool]
+p2Tests =
+  [       match p2 "baz"
+  ,       match p2 "foofoobaz"
+  , not $ match p2 "fobarobaz"
+  ,       match p2 "barfoobarbaz"
+  ]
+
+-- \[(foo(, foo)*)?\]
+p3 :: Parser ()
+p3 = undefined
+
+p3Tests :: [Bool]
+p3Tests =
+  [       match p3 "[]"
+  ,       match p3 "[foo]"
+  , not $ match p3 "foo"
+  , not $ match p3 "[foo, foo, foo"
+  ,       match p3 "[foo, foo, foo]"
+  ]
+  -}
