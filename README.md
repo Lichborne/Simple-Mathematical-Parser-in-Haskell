@@ -1,5 +1,5 @@
 # Simple-Mathematical-Parser-in-Haskell
-This is a simple mathematical parser written in Haskell. Please consult Regex.txt for RegEx specs. Use GHCI to interact with the program.
+This is a simple mathematical parser written in Haskell, written on the basis of a definition for a parametric Parser class provided by V. Bense of Eotvos Lorand University of Science. Please consult Regex.txt for RegEx specs. Use GHCI to interact with the program.
 
 ### Usage
 Parsing (for expressions) can be validated in the following format: runParser pExpr "yourstringhere"
