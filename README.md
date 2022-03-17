@@ -2,7 +2,7 @@
 This is a simple mathematical parser written in Haskell, written on the basis of a definition for a parametric Parser class provided by V. Bense of Eotvos Lorand University of Science. Please consult Regex.txt for RegEx specs. Use GHCI to interact with the program.
 
 ### Usage
-Parsing (for expressions) can be validated in the following format: runParser pExpr "yourstringhere"
+Parsing (for expressions) can be validated in the following format: runParser pExpr "yourstringhere". E.g. runParser pExpr "11\*12"
 
 ### Syntax
 Syntax is the standard Haskell syntax for multiplication, division, addition, subtraction, exponentiation, and the equivalence relation.
