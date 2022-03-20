@@ -156,8 +156,6 @@ match = (isJust .) . runParser
 -- match integer "3216534" == True
 -- match integer "34879alm" == True
 
--- Implement the following parsers:
-
 -- [a-z]
 lowercase :: Parser Char
 lowercase = undefined
