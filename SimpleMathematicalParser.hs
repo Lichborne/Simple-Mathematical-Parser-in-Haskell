@@ -12,7 +12,7 @@ import System.FilePath.Windows (pathSeparator)
 
 {-  PARSER FUNCTIONS 
 
-The below section until line 165 is for the Parser type and its related functions in general.
+The below section until line 178 is for the Parser type and its related functions in general.
 The later section is for the parsing of simple mathematical expressions.
 
 -}
